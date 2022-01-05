@@ -13,10 +13,10 @@ namespace eSportTournament.Models
         [Required]
         public string nomEquipe { get; set; }
 
-        public ICollection<Match> Matchs { get; set; }
+       // public ICollection<Match> Matchs { get; set; }
 
-        [ForeignKey("Competition")]
-        public int CompetitionID { get; set; }
+        //[ForeignKey("Competition")]
+      //  public int CompetitionID { get; set; }
         
     }
 }

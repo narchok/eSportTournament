@@ -14,7 +14,7 @@ namespace eSportTournament.Data
         {
 
         }
-       // public DbSet<Equipe> Equipes { get; set; }
+       public DbSet<Equipe> Equipes { get; set; }
 
       //  public DbSet<Match> Matchs { get; set; }
 

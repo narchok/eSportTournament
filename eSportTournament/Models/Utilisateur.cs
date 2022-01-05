@@ -13,9 +13,9 @@ namespace eSportTournament.Models
 
         public string nom { get; set; }
 
-        public int EquipeID { get; set; }
+      //  public int EquipeID { get; set; }
 
-        public Equipe Equipe { get; set; }
+       // public Equipe Equipe { get; set; }
 
 
     }
