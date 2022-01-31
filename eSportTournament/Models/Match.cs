@@ -12,9 +12,7 @@ namespace eSportTournament.Models
         public int ID { get; set; }
         [Required]
 
-        [ForeignKey("Equipe")]
         public int? EquipeAID { get; set; }
-        [ForeignKey("Equipe")]
         public int? EquipeBID { get; set; }
 
         public Equipe EquipeA { get; set; }
@@ -25,7 +23,6 @@ namespace eSportTournament.Models
 
         public int? gagnantID { get; set; }
 
-        [ForeignKey("Competition")]
         public int CompetitionID { get; set; }
 
         public Competition Competition { get; set; }

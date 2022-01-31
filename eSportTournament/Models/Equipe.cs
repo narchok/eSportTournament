@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,10 +14,14 @@ namespace eSportTournament.Models
         [Required]
         public string nomEquipe { get; set; }
 
-       // public ICollection<Match> Matchs { get; set; }
+        // public ICollection<Match> Matchs { get; set; }
+        public ICollection<Utilisateur> Joueurs { get; set; }
+
+        [DefaultValue(false)]
+        public bool valider { get; set; }
 
         //[ForeignKey("Competition")]
-      //  public int CompetitionID { get; set; }
-        
+        //  public int CompetitionID { get; set; }
+
     }
 }

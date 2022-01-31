@@ -3,20 +3,22 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eSportTournament.Data;
 
-namespace eSportTournament.Data.Migrations
+namespace eSportTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220131141913_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -219,6 +221,69 @@ namespace eSportTournament.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("eSportTournament.Models.Competition", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isTournoi")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("nomCompetition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Competitions");
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.DemandeEquipe", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("approuver")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("equipeID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DemandesEquipes");
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.DemandeLicence", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("approuver")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("userID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DemandeLicences");
+                });
+
             modelBuilder.Entity("eSportTournament.Models.Equipe", b =>
                 {
                     b.Property<int>("ID")
@@ -230,9 +295,49 @@ namespace eSportTournament.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("valider")
+                        .HasColumnType("bit");
+
                     b.HasKey("ID");
 
                     b.ToTable("Equipes");
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.Match", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompetitionID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EquipeAID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EquipeAScore")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EquipeBID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EquipeBScore")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("gagnantID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CompetitionID");
+
+                    b.HasIndex("EquipeAID");
+
+                    b.HasIndex("EquipeBID");
+
+                    b.ToTable("Matchs");
                 });
 
             modelBuilder.Entity("eSportTournament.Models.Utilisateur", b =>
@@ -242,10 +347,21 @@ namespace eSportTournament.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("equipeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("nom")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("prenom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("equipeID");
 
                     b.ToTable("Utilisateurs");
                 });
@@ -299,6 +415,48 @@ namespace eSportTournament.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.Match", b =>
+                {
+                    b.HasOne("eSportTournament.Models.Competition", "Competition")
+                        .WithMany("Matchs")
+                        .HasForeignKey("CompetitionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eSportTournament.Models.Equipe", "EquipeA")
+                        .WithMany()
+                        .HasForeignKey("EquipeAID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eSportTournament.Models.Equipe", "EquipeB")
+                        .WithMany()
+                        .HasForeignKey("EquipeBID");
+
+                    b.Navigation("Competition");
+
+                    b.Navigation("EquipeA");
+
+                    b.Navigation("EquipeB");
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.Utilisateur", b =>
+                {
+                    b.HasOne("eSportTournament.Models.Equipe", null)
+                        .WithMany("Joueurs")
+                        .HasForeignKey("equipeID");
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.Competition", b =>
+                {
+                    b.Navigation("Matchs");
+                });
+
+            modelBuilder.Entity("eSportTournament.Models.Equipe", b =>
+                {
+                    b.Navigation("Joueurs");
                 });
 #pragma warning restore 612, 618
         }

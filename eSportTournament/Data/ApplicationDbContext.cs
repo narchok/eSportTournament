@@ -16,13 +16,13 @@ namespace eSportTournament.Data
         }
        public DbSet<Equipe> Equipes { get; set; }
 
-      //  public DbSet<Match> Matchs { get; set; }
+       public DbSet<Match> Matchs { get; set; }
 
-       // public DbSet<Competition> Competitions { get; set; }
+         public DbSet<Competition> Competitions { get; set; }
 
         public DbSet<Utilisateur> Utilisateurs { get; set; }
-
-
- 
+        public DbSet<DemandeLicence> DemandeLicences { get; set; }
+        public DbSet<DemandeEquipe> DemandesEquipes { get; set; }
+        public object Utilisateur { get; internal set; }
     }
 }

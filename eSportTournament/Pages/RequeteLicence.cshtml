@@ -1,0 +1,41 @@
+﻿@page
+@model eSportTournament.Pages.RequeteLicenceModel
+
+@{
+    ViewData["Title"] = "RequeteLicence";
+}
+
+<h1>RequeteLicence</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form method="post">
+    <div class="form-group">
+        <input type="submit" value="Enregistrer les validations" class="btn btn-primary" />
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DemandeLicence[0].userID)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.DemandeLicence.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="@Model.DemandeLicence[i].ID" />
+                        @Model.DemandeLicence[i].ID
+                    </td>
+                    <td>@Model.DemandeLicence[i].userID</td>
+                    <td><input asp-for="@Model.DemandeLicence[i].approuver" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
