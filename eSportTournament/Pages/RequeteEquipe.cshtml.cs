@@ -100,7 +100,6 @@ namespace eSportTournament.Pages
 
                 return RedirectToPage("./Index");
             }
-            System.Console.WriteLine("null" + id);
 
 
 

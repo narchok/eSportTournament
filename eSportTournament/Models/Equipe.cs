@@ -17,6 +17,8 @@ namespace eSportTournament.Models
         // public ICollection<Match> Matchs { get; set; }
         public ICollection<Utilisateur> Joueurs { get; set; }
 
+        public ICollection<CompetitionEquipe> CompetitionsEquipe { get; set; }
+
         [DefaultValue(false)]
         public bool valider { get; set; }
 

@@ -24,5 +24,6 @@ namespace eSportTournament.Data
         public DbSet<DemandeLicence> DemandeLicences { get; set; }
         public DbSet<DemandeEquipe> DemandesEquipes { get; set; }
         public object Utilisateur { get; internal set; }
+        public DbSet<eSportTournament.Models.CompetitionEquipe> CompetitionEquipe { get; set; }
     }
 }

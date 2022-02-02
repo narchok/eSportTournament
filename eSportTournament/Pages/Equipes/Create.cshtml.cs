@@ -64,7 +64,7 @@ namespace eSportTournament.Pages.Equipes
                 _context.DemandesEquipes.Add(demande);
                 await _context.SaveChangesAsync();
 
-            } 
+            }
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

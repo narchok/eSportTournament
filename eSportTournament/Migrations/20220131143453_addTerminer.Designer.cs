@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eSportTournament.Data;
 
 namespace eSportTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220131143453_addTerminer")]
+    partial class addTerminer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,37 +238,12 @@ namespace eSportTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("nombreJoueurs")
-                        .HasColumnType("int");
-
                     b.Property<bool>("terminer")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");
 
                     b.ToTable("Competitions");
-                });
-
-            modelBuilder.Entity("eSportTournament.Models.CompetitionEquipe", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("competitionID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("equipeID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("competitionID");
-
-                    b.HasIndex("equipeID");
-
-                    b.ToTable("CompetitionEquipe");
                 });
 
             modelBuilder.Entity("eSportTournament.Models.DemandeEquipe", b =>
@@ -353,9 +330,6 @@ namespace eSportTournament.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("gagnantID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("roundNumber")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -446,29 +420,10 @@ namespace eSportTournament.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("eSportTournament.Models.CompetitionEquipe", b =>
-                {
-                    b.HasOne("eSportTournament.Models.Competition", "CompetitionCs")
-                        .WithMany("CompetitionsEquipe")
-                        .HasForeignKey("competitionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eSportTournament.Models.Equipe", "EquipeE")
-                        .WithMany("CompetitionsEquipe")
-                        .HasForeignKey("equipeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CompetitionCs");
-
-                    b.Navigation("EquipeE");
-                });
-
             modelBuilder.Entity("eSportTournament.Models.Match", b =>
                 {
                     b.HasOne("eSportTournament.Models.Competition", "Competition")
-                        .WithMany()
+                        .WithMany("Matchs")
                         .HasForeignKey("CompetitionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -499,13 +454,11 @@ namespace eSportTournament.Migrations
 
             modelBuilder.Entity("eSportTournament.Models.Competition", b =>
                 {
-                    b.Navigation("CompetitionsEquipe");
+                    b.Navigation("Matchs");
                 });
 
             modelBuilder.Entity("eSportTournament.Models.Equipe", b =>
                 {
-                    b.Navigation("CompetitionsEquipe");
-
                     b.Navigation("Joueurs");
                 });
 #pragma warning restore 612, 618

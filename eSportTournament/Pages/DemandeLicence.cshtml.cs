@@ -53,7 +53,6 @@ namespace eSportTournament.Pages
 
             user.userID = userId;
         
-
             demande.userID = userId;
             _context.DemandeLicences.Add(demande);
             _context.Utilisateurs.Add(user);

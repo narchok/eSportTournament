@@ -1,0 +1,81 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.VoirMatchsModel
+
+@{
+    ViewData["Title"] = "VoirMatchs";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<h1>VoirMatchs</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].EquipeA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].EquipeB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].EquipeAScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].EquipeBScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].gagnantID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].Competition)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Match)
+        {
+            string nomGagnant = "";
+            string classRow = "";
+            if (item.gagnantID != null)
+            {
+                if (item.gagnantID == item.EquipeAID)
+                {
+                    nomGagnant = item.EquipeA.nomEquipe;
+                }
+                else
+                {
+                    nomGagnant = item.EquipeB.nomEquipe;
+                }
+                classRow = "classRow";
+            }
+
+            <tr class="@classRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipeA.nomEquipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipeB.nomEquipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipeAScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipeBScore)
+                </td>
+                <td>
+                    @nomGagnant
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Competition.nomCompetition)
+                </td>
+                <td>
+                    <a asp-page="./EditMatch" asp-route-id="@item.ID">Mettre à jour</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
