@@ -10,11 +10,11 @@ using eSportTournament.Models;
 
 namespace eSportTournament.Pages.Competitions
 {
-    public class VoirMatchsModel : PageModel
+    public class VoirMatchsTournoisModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
 
-        public VoirMatchsModel(eSportTournament.Data.ApplicationDbContext context)
+        public VoirMatchsTournoisModel(eSportTournament.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -26,7 +26,7 @@ namespace eSportTournament.Pages.Competitions
             Match = await _context.Matchs
                 .Include(m => m.Competition)
                 .Include(m => m.EquipeA)
-                .Include(m => m.EquipeB).Where(m => m.gagnantID == null && m.EquipeBID !=null && m.Competition.isTournoi == false).ToListAsync();
+                .Include(m => m.EquipeB).Where(m => m.gagnantID == null && m.EquipeBID !=null && m.Competition.isTournoi == true).ToListAsync();
         }
     }
 }

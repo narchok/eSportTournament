@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eSportTournament.Pages.Competitions
 {
-    public class CreateModel : PageModel
+    public class CreateTournoiModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
 
@@ -27,7 +27,7 @@ namespace eSportTournament.Pages.Competitions
         [BindProperty]
         public bool viewPlayer { get; set; } = false;
 
-        public CreateModel(eSportTournament.Data.ApplicationDbContext context)
+        public CreateTournoiModel(eSportTournament.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -53,13 +53,14 @@ namespace eSportTournament.Pages.Competitions
                 return Page();
             }
             Competition.terminer = false;
-            Competition.isTournoi = false;
+            Competition.isTournoi = true;
+
             _context.Competitions.Add(Competition);
             await _context.SaveChangesAsync();
 
             System.Console.WriteLine("competition" + Competition.ID);
 
-            return RedirectToPage("./ChampionnatEquipe", new { id = Competition.ID });
+            return RedirectToPage("./Edit", new { id = Competition.ID });
         }
     }
 }

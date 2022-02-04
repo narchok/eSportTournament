@@ -83,8 +83,8 @@ namespace eSportTournament.Pages.Competitions
 
            Match.EquipeA = equipeA;
             Match.EquipeB = equipeB;
-            Match.EquipeAID = SelectedTeamA;
-            Match.EquipeBID = SelectedTeamB;
+           // Match.EquipeAID = SelectedTeamA;
+           // Match.EquipeBID = SelectedTeamB;
             Match.CompetitionID = id;
             Match.Competition = Competition;
             //_context.Attach(Competition).State = EntityState.Modified;

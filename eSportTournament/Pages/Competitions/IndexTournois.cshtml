@@ -1,19 +1,19 @@
 ﻿@page
-@model eSportTournament.Pages.Competitions.IndexModel
+@model eSportTournament.Pages.Competitions.IndexTournoisModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <p>
-    <a asp-page="Create">Créer une compétition</a>
+    <a asp-page="CreateTournoi">Créer un tournoi</a>
 </p>
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Championnat</a>
+        <a class="nav-link"  asp-page="./Index">Championnat</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-page="./IndexTournois">Tournois</a>
+        <a class="nav-link active" aria-current="page" asp-page="./IndexTournois">Tournois</a>
     </li>
 </ul>
 <table class="table">
@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Competition[0].nomCompetition)
             </th>
             <th></th>
-                  </tr>
+        </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Competition) {
@@ -32,9 +32,8 @@
                 @Html.DisplayFor(modelItem => item.nomCompetition)
             </td>
             <td>
-                <a asp-page="./Classement" asp-route-id="@item.ID">Classement</a>
-              @if (Model.showDelete == true)
-              {  <a asp-page="./Delete" asp-route-id="@item.ID"> | Delete</a>}
+                <a asp-page="./Details" asp-route-id="@item.ID">Arbre</a> 
+          @if(Model.showDelete == true){   <a asp-page="./Delete" asp-route-id="@item.ID"> | Delete</a>}
             </td>
         </tr>
 }

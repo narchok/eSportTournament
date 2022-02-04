@@ -1,0 +1,57 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.ClassementModel
+
+@{
+    ViewData["Title"] = "Classement";
+    var i = 0;
+}
+
+<h1>Classement - @Model.Competition.nomCompetition</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Equipe
+            </th>
+            <th>
+                V
+            </th>
+            <th>
+                D
+            </th>
+            <th class="font-weight-bold">
+                <p>Pts.</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Data)
+        {
+            i += 1;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @item.equipe.nomEquipe
+            </td>
+            <td>
+                @item.nombreVictoire
+            </td>
+            <td>
+                @item.nombreDefaite
+            </td>
+            <td class="font-weight-bold">
+                @item.points
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-page="./Index">Retour à la liste</a>
+</div>

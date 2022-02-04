@@ -5,15 +5,8 @@
     ViewData["Title"] = "Create";
 }
 
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Championnat</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-page="./CreateTournoi">Tournois</a>
-    </li>
-</ul>
-<h4>Créer un championnat</h4>
+
+<h4>Créer un tournoi</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,6 +21,8 @@
                 <label asp-for="Competition.nombreJoueurs" class="control-label"></label>
                 <input asp-for="Competition.nombreJoueurs" class="form-control" />
                 <span asp-validation-for="Competition.nombreJoueurs" class="text-danger"></span>
+            </div>
+<br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

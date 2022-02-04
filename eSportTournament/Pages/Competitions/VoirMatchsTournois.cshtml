@@ -1,5 +1,5 @@
 ﻿@page
-@model eSportTournament.Pages.Competitions.VoirMatchsModel
+@model eSportTournament.Pages.Competitions.VoirMatchsTournoisModel
 
 @{
     ViewData["Title"] = "VoirMatchs";
@@ -10,10 +10,10 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Championnats</a>
+        <a class="nav-link"  asp-page="./VoirMatchs">Championnats</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-page="./VoirMatchsTournois">Tournois</a>
+        <a class="nav-link active" aria-current="page" asp-page="./VoirMatchsTournois">Tournois</a>
     </li>
 </ul>
 <table class="table">

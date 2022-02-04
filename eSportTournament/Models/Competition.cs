@@ -13,6 +13,8 @@ namespace eSportTournament.Models
         public int ID { get; set; }
         [Required]
 
+        [Display(Name = "Nom")]
+
         public string nomCompetition { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }

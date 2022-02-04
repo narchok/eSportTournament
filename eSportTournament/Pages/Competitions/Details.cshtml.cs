@@ -19,24 +19,22 @@ namespace eSportTournament.Pages.Competitions
             _context = context;
         }
 
-
         public List<Match> Match { get;set; }
 
         Dictionary<int, string[,]> MatchSortedWithRound =
     new Dictionary<int, string[,]>();
 
-        //public Match[][] test;
 
         public async Task OnGetAsync(int id)
         {
             var test = MatchSortedWithRound.Count;
             Competition compet = await _context.Competitions.FirstOrDefaultAsync(c => c.ID == id);
+
             Match = await _context.Matchs
                 .Include(m => m.Competition)
                 .Include(m => m.EquipeA)
                 .Include(m => m.EquipeB).Where(m => m.CompetitionID == id).ToListAsync();
             
-
             for (int i = 0; i < nbTour(compet.nombreJoueurs); i++)
           {
                 List<Match> temp = Match.Where(m => m.roundNumber == i).ToList();

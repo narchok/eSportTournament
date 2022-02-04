@@ -1,0 +1,55 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.ChampionnatEquipeModel
+
+@{
+    ViewData["Title"] = "ChampionnatEquipe";
+}
+
+<h4>Ajouter les équipes au championnant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Competition.ID" />
+            <div class="form-group">
+                <label asp-for="Competition.nomCompetition" class="control-label"></label>
+                <input asp-for="Competition.nomCompetition" class="form-control" />
+                <span asp-validation-for="Competition.nomCompetition" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Competition.terminer" /> @Html.DisplayNameFor(model => model.Competition.terminer)
+                </label>
+            </div>
+            <label class="control-label">Equipes</label>
+            <select multiple id="mySelect" class="selectpicker" asp-items="ViewBag.TEAMS" asp-for="@Model.SelectedTeams" title="Choississez des équipes"></select>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $('select[name="mySelect"]').on('change', function () {
+            if (this.selectedOptions.length < 4) {
+                $(this).find(':selected').addClass('selected');
+                $(this).find(':not(:selected)').removeClass('selected');
+                console.log("aruedzqdzqdzq");
+            } else
+                $(this)
+                    .find(':selected:not(.selected)')
+                    .prop('selected', false);
+                console.log("aruedzqdzqdzq");
+
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
