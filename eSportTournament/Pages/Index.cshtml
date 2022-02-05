@@ -1,10 +1,84 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <div class="container">
+        @if (Model.showAdminThings == true)
+        {<div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Equipes</h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text">Voir les demandes en cours:</p>
+                                <p>@Model.nbDemandesEquipes</p>
+                                <a class="card-link" asp-page="./RequeteEquipe">Voir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Licences</h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text">Voir les demandes en cours:</p>
+                                <p class="rounded-circle">@Model.nbDemandesLicences</p>
+                                <a class="card-link" asp-page="./RequeteLicence">Voir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  }
+
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    }
+    else
+    {
+        <div>
+
+            <h1>Bonjour visiteur fan d'esport!</h1>
+            <div>
+                <p>Découvre les compétitions en cours et terminés ici: </p>
+                <a class="card-link text-dark btn btn-outline-primary" asp-area="" asp-page="/Competitions/Index">Voir</a>
+            </div>
+
+        </div>
+    }
 </div>

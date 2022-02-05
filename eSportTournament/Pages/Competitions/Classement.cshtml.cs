@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using eSportTournament.Data;
 using eSportTournament.Models;
 using eSportTournament.VueModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eSportTournament.Pages.Competitions
 {
+    [AllowAnonymous]
     public class ClassementModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;

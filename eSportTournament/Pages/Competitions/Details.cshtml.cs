@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using eSportTournament.Data;
 using eSportTournament.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eSportTournament.Pages.Competitions
 {
+    [AllowAnonymous]
     public class DetailsModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;

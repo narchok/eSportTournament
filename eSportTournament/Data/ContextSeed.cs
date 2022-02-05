@@ -9,7 +9,8 @@ namespace eSportTournament.Data
     public enum Roles
     {
       Licencie,
-      Admin
+      Admin,
+      Organisateur
     }
     public static class ContextSeed
     {
@@ -18,6 +19,8 @@ namespace eSportTournament.Data
             //Seed Roles
             await roleManager.CreateAsync(new IdentityRole(Roles.Licencie.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Roles.Organisateur.ToString()));
+
           
         }
     }

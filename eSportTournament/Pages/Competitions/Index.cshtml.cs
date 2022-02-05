@@ -31,6 +31,7 @@ namespace eSportTournament.Pages.Competitions
         [BindProperty]
         public bool showDelete { get; set; }
 
+
         public async Task OnGetAsync()
         {
             
