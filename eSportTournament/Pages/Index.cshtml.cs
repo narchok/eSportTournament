@@ -33,7 +33,7 @@ namespace eSportTournament.Pages
         [BindProperty]
         public int nbDemandesLicences { get; set; }
 
-
+        
         public async Task OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);

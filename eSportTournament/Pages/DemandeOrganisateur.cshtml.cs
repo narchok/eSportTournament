@@ -11,37 +11,28 @@ using Microsoft.AspNetCore.Identity;
 
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+
 namespace eSportTournament.Pages
 {
-    public class DemandeLicenceModel : PageModel
+    [Authorize(Roles = "Licencie")]
+
+    public class DemandeOrganisateurModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
 
-        public DemandeLicenceModel(eSportTournament.Data.ApplicationDbContext context)
+        public DemandeOrganisateurModel(eSportTournament.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        [BindProperty]
-        public bool showDemande { get; set; }
-
         public IActionResult OnGet()
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            bool t = false;
-            var temp = _context.DemandeLicences.Where(d => d.userID == userId).ToList();
-            if(temp.Count > 1)
-            {
-                t = false;
-            } else
-            {
-                t = true;
-            }
             return Page();
         }
 
         [BindProperty]
-        public DemandeLicence DemandeLicence { get; set; }
+        public DemandeOrganisateur DemandeO { get; set; }
 
         public Utilisateur Utilisateur { get; set; }
 
@@ -57,18 +48,9 @@ namespace eSportTournament.Pages
         {
            
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            DemandeLicence demande = new DemandeLicence();
-            Utilisateur user = new Utilisateur();
-
-            user.nom = nom;
-
-            user.prenom = prenom;
-
-            user.userID = userId;
-        
+            DemandeOrganisateur demande = new DemandeOrganisateur();
             demande.userID = userId;
-            _context.DemandeLicences.Add(demande);
-            _context.Utilisateurs.Add(user);
+            _context.DemandeOrganisateurs.Add(demande);
 
 
             await _context.SaveChangesAsync();

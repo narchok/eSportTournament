@@ -22,7 +22,11 @@ namespace eSportTournament.Data
 
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<DemandeLicence> DemandeLicences { get; set; }
+        public DbSet<DemandeOrganisateur> DemandeOrganisateurs { get; set; }
+
         public DbSet<DemandeEquipe> DemandesEquipes { get; set; }
+        public DbSet<DemandeEquipeCreation> DemandesEquipeCreations { get; set; }
+
         public object Utilisateur { get; internal set; }
         public DbSet<eSportTournament.Models.CompetitionEquipe> CompetitionEquipe { get; set; }
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using eSportTournament.Data;
 using eSportTournament.Models;
+using System.Security.Claims;
 
 namespace eSportTournament.Pages.Equipes
 {
@@ -65,6 +66,12 @@ namespace eSportTournament.Pages.Equipes
                 await _context.SaveChangesAsync();
 
             }
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            DemandeEquipeCreation demandeCreation = new DemandeEquipeCreation();
+            demandeCreation.equipeID = data.Entity.ID;
+            demandeCreation.userID = userId;
+            _context.DemandesEquipeCreations.Add(demandeCreation);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

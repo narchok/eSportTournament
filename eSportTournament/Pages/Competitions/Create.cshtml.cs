@@ -35,7 +35,7 @@ namespace eSportTournament.Pages.Competitions
         public IActionResult OnGet()
         {
             select = new List<SelectListItem>();
-            EquipeAll = _context.Equipes.ToList();
+            EquipeAll = _context.Equipes.Where(e => e.valider == true).ToList();
             foreach(Equipe equipe in EquipeAll)
             {
                 select.Add(new SelectListItem { Value = equipe.ID.ToString(), Text = equipe.nomEquipe });

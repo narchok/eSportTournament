@@ -36,7 +36,7 @@ namespace eSportTournament.Pages.Competitions
             }
 
             Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
-            EquipeAll = await _context.Equipes.ToListAsync();
+            EquipeAll = await _context.Equipes.Where(e => e.valider == true).ToListAsync();
             select = new List<SelectListItem>(); 
             foreach (Equipe element in EquipeAll)
             {

@@ -16,7 +16,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace eSportTournament.Pages
 {
     [Authorize(Roles = "Admin")]
-    public class RequeteLicenceModel : PageModel
+
+    public class RequeteOrganisateurModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
         //private readonly RoleManager<IdentityRole> _roleManager;
@@ -24,14 +25,14 @@ namespace eSportTournament.Pages
        // private readonly UserManager<IdentityUser> _userManager;
 
 
-        public RequeteLicenceModel(UserManager<IdentityUser> userManager,eSportTournament.Data.ApplicationDbContext context)
+        public RequeteOrganisateurModel(UserManager<IdentityUser> userManager,eSportTournament.Data.ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
         }
 
         [BindProperty]
-        public List<DemandeLicence> DemandeLicence { get; set; } = new List<DemandeLicence>();
+        public List<DemandeOrganisateur> DemandeLicence { get; set; } = new List<DemandeOrganisateur>();
 
 
         public DemandeLicence[] demandes { get; set; }
@@ -40,7 +41,7 @@ namespace eSportTournament.Pages
         public string[] noms { get; set; }
         public async Task<PageResult> OnGetAsync()
         {
-            DemandeLicence = await _context.DemandeLicences.Where(d => d.approuver == false ).ToListAsync();
+            DemandeLicence = await _context.DemandeOrganisateurs.Where(d => d.approuver == false ).ToListAsync();
             var temp = new string[DemandeLicence.Count];
             for (int i = 0; i < DemandeLicence.Count; i++)
             {
@@ -60,7 +61,7 @@ namespace eSportTournament.Pages
                     DemandeLicence demande = _context.DemandeLicences.FirstOrDefault(d => d.ID == DemandeLicence[i].ID);
                     demande.approuver = true;
                     var user = await _userManager.FindByIdAsync(demande.userID);
-                    await _userManager.AddToRoleAsync(user, "Licencie");
+                    await _userManager.AddToRoleAsync(user, "Organisateur");
                     await _context.SaveChangesAsync();
                 }
             }

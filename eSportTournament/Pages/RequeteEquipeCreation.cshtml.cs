@@ -13,17 +13,17 @@ using System.Security.Claims;
 
 namespace eSportTournament.Pages
 {
-    public class RequeteEquipeModel : PageModel
+    public class RequeteEquipeCreationModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
 
-        public RequeteEquipeModel(eSportTournament.Data.ApplicationDbContext context)
+        public RequeteEquipeCreationModel(eSportTournament.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
 
-        public IList<DemandeEquipe> DemandeEquipe { get;set; }
+        public IList<DemandeEquipeCreation> DemandeEquipe { get;set; }
 
         public List<Equipe> EquipeAll { get; set; }
 
@@ -46,11 +46,11 @@ namespace eSportTournament.Pages
                 Utilisateur utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.userID == userId);
                 System.Console.WriteLine(utilisateur.userID);
                 List<Equipe> test = new List<Equipe>();
-                DemandeEquipe = await _context.DemandesEquipes.Where(d => d.userID == utilisateur.ID.ToString()).ToListAsync();
+                DemandeEquipe = await _context.DemandesEquipeCreations.Where(d => d.approuver == false).ToListAsync();
 
                 // System.Console.WriteLine(DemandeEquipe[0].userID);
 
-                foreach (DemandeEquipe d in DemandeEquipe)
+                foreach (DemandeEquipeCreation d in DemandeEquipe)
                 {
                     Equipe equipess = new Equipe();
                     equipess = await _context.Equipes.FirstOrDefaultAsync(e => e.ID == d.equipeID);
@@ -88,11 +88,11 @@ namespace eSportTournament.Pages
             {
                 Equipe = await _context.Equipes.FirstOrDefaultAsync(e => e.ID == id);
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                Utilisateur u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.userID == userId);
-                u.equipeID = Equipe.ID;
-                DemandeEquipe de = await _context.DemandesEquipes.FirstOrDefaultAsync(de => de.equipeID == Equipe.ID && de.userID == u.ID.ToString());
+
+                Equipe.valider = true;
+                var de = await _context.DemandesEquipeCreations.FirstOrDefaultAsync(de => de.equipeID == Equipe.ID);
                 de.approuver = true;
-                _context.Attach(u).State = EntityState.Modified;
+                _context.Attach(Equipe).State = EntityState.Modified;
                 _context.Attach(de).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eSportTournament.Data;
 
 namespace eSportTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220205145522_oui")]
+    partial class oui
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,29 +290,7 @@ namespace eSportTournament.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DemandesEquipes");
-                });
-
-            modelBuilder.Entity("eSportTournament.Models.DemandeEquipeCreation", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("approuver")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("equipeID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DemandesEquipeCreations");
+                    b.ToTable("DemandeEquipe");
                 });
 
             modelBuilder.Entity("eSportTournament.Models.DemandeLicence", b =>
@@ -330,25 +310,6 @@ namespace eSportTournament.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("DemandeLicences");
-                });
-
-            modelBuilder.Entity("eSportTournament.Models.DemandeOrganisateur", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("approuver")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("userID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DemandeOrganisateurs");
                 });
 
             modelBuilder.Entity("eSportTournament.Models.Equipe", b =>

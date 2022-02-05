@@ -34,7 +34,7 @@ namespace eSportTournament.Pages.Competitions
             foreach(Equipe e in equipes)
             {
                 var matchsWon = await _context.Matchs.Where(m => m.gagnantID == e.ID && m.CompetitionID == id).ToListAsync();
-                var matchsLost = await _context.Matchs.Where(m => (m.EquipeAID == e.ID || m.EquipeBID == e.ID) && m.gagnantID != e.ID && m.CompetitionID == id).ToListAsync();
+                var matchsLost = await _context.Matchs.Where(m => m.gagnantID != null && (m.EquipeAID == e.ID || m.EquipeBID == e.ID) && m.gagnantID != e.ID && m.CompetitionID == id).ToListAsync();
                 var matchsCounted = await _context.Matchs.Where(m => (m.EquipeAID == e.ID || m.EquipeBID == e.ID) && m.CompetitionID == id).ToListAsync();
                 var objet = new ClasssementChampionnat();
                 objet.equipe = e;

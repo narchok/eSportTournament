@@ -40,7 +40,6 @@ namespace eSportTournament.Pages.Competitions
             for (int i = 0; i < nbTour(compet.nombreJoueurs); i++)
           {
                 List<Match> temp = Match.Where(m => m.roundNumber == i).ToList();
-                int v = 0;
                 string[,] tempString = null;
                 if(temp.Count > 0)
                 {

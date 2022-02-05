@@ -1,15 +1,12 @@
 ﻿@page
-@model eSportTournament.Pages.RequeteEquipeModel
+@model eSportTournament.Pages.RequeteEquipeCreationModel
 
 @{
     ViewData["Title"] = "RequeteEquipe";
 }
 
-<h1>RequeteEquipe</h1>
+<h1>Demandes de création d'équipe</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 @if (Model.ShowTeam == false)
 {
     <form method="post">
@@ -30,7 +27,7 @@
                             @Html.DisplayFor(modelItem => item.nomEquipe)
                         </td>
                         <td>
-                            <a asp-page="./RequeteEquipe" asp-route-id="@item.ID">Voir</a> |
+                            <a asp-page="./RequeteEquipeCreation" asp-route-id="@item.ID">Voir</a> |
                         </td>
                     </tr>
                 }
@@ -39,12 +36,12 @@
     </form>
 } else
             {
-<p>
+<h1>
     @Html.DisplayFor(modelItem => Model.Equipe.nomEquipe)
-</p>
+</h1>
 <form method="post">
     <div class="form-group">
-        <input type="submit" value="Rejoindre cette équipe" class="btn btn-primary" />
+        <input type="submit" value="Accepter" class="btn btn-primary" />
     </div>
 
 </form>

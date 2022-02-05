@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "ChampionnatEquipe";
+    bool showMessage = false;
 }
 
 <h4>Ajouter les équipes au championnant</h4>
@@ -23,7 +24,7 @@
                 </label>
             </div>
             <label class="control-label">Equipes</label>
-            <select multiple id="mySelect" class="selectpicker" asp-items="ViewBag.TEAMS" asp-for="@Model.SelectedTeams" title="Choississez des équipes"></select>
+            <select multiple id="mySelect" class="selectpicker" asp-items="ViewBag.TEAMS" asp-for="@Model.SelectedTeams" onchange="getComboA(this)" title="Choississez des équipes"></select>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -33,23 +34,20 @@
 
 <div>
 
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Retour à la liste</a>
 </div>
 
 @section Scripts {
     <script>
-        $('select[name="mySelect"]').on('change', function () {
-            if (this.selectedOptions.length < 4) {
-                $(this).find(':selected').addClass('selected');
-                $(this).find(':not(:selected)').removeClass('selected');
-                console.log("aruedzqdzqdzq");
-            } else
-                $(this)
-                    .find(':selected:not(.selected)')
-                    .prop('selected', false);
-                console.log("aruedzqdzqdzq");
-
-        });
+        function getComboA(selectObject) {
+            var value = selectObject.length;
+            console.log($(":selected", selectObject).length);
+            if ($(":selected", selectObject).length == @Model.Competition.nombreJoueurs) {
+                document.querySelector('.dropdown-menu').remove();
+                
+                alert("Nombre de joueurs limite atteint.");
+            }
+        }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
