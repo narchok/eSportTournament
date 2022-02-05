@@ -7,22 +7,40 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using eSportTournament.Data;
 using eSportTournament.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace eSportTournament.Pages.Equipes
 {
     public class IndexModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public IndexModel(eSportTournament.Data.ApplicationDbContext context)
+        public IndexModel(UserManager<IdentityUser> userManager, eSportTournament.Data.ApplicationDbContext context)
         {
+            _userManager = userManager;
+
             _context = context;
         }
+        [BindProperty]
+        public bool showCreate { get; set; }
 
+        [BindProperty]
+        public bool showDelete { get; set; }
         public IList<Equipe> Equipe { get;set; }
 
         public async Task OnGetAsync()
         {
+
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                bool isLi = await _userManager.IsInRoleAsync(user, "Licencie");
+                showCreate = isLi;
+                bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+                showDelete = isAdmin;
+            }
             Equipe = await _context.Equipes.ToListAsync();
         }
     }

@@ -8,6 +8,7 @@
 
 <h4>Devenir Organisateur de compétitions</h4>
 <hr />
+@if(Model.showDemande == true){
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -19,7 +20,9 @@
         </form>
     </div>
 </div>
-
+} else {
+    <h2>Vous devez faire une demande de licence avant d'être organisateur.</h2>
+}
 <div>
     <a asp-page="Index">Back to List</a>
 </div>

@@ -30,13 +30,14 @@ namespace eSportTournament.Pages
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             bool t = false;
             var temp = _context.DemandeLicences.Where(d => d.userID == userId).ToList();
-            if(temp.Count > 1)
+            if(temp.Count >= 1)
             {
                 t = false;
             } else
             {
                 t = true;
             }
+            showDemande = t;
             return Page();
         }
 

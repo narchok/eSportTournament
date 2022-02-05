@@ -12,33 +12,61 @@
     @if (SignInManager.IsSignedIn(User))
     {
     <div class="container">
-        @if (Model.showAdminThings == true)
-        {<div class="row">
+        
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Equipes
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @if (Model.showAdminThings == true)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteEquipeCreation">Demandes créations d'équipes:</a>
+                                    <p class="m-0">@Model.nbDemandesCreationEquipes</p>
+                                </div>
+                            </li>
+                        }
+                        @if (Model.nbDemandesEquipes > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteEquipe">Demande de recrutement:</a>
+                                    <p class="m-0">@Model.nbDemandesEquipes</p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            @if (Model.showAdminThings == true)
+            {
                 <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Equipes</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="card-text">Voir les demandes en cours:</p>
-                                <p>@Model.nbDemandesEquipes</p>
-                                <a class="card-link" asp-page="./RequeteEquipe">Voir</a>
-                            </div>
+                    <div class="card">
+                        <div class="card-header">
+                            Licencié et Organisateurs
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteLicence">Demande licences:</a>
+                                    <p class="m-0">@Model.nbDemandesLicences</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteOrganisateur">Demandes organisateurs:</a>
+                                    <p class="m-0">@Model.nbDemandesOrganisateurs</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Licences</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="card-text">Voir les demandes en cours:</p>
-                                <p class="rounded-circle">@Model.nbDemandesLicences</p>
-                                <a class="card-link" asp-page="./RequeteLicence">Voir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  }
+            }
+            </div>  
+            
 
         <div class="row mt-4">
             <div class="col">
@@ -71,14 +99,28 @@
     }
     else
     {
-        <div>
+<div>
 
-            <h1>Bonjour visiteur fan d'esport!</h1>
-            <div>
-                <p>Découvre les compétitions en cours et terminés ici: </p>
-                <a class="card-link text-dark btn btn-outline-primary" asp-area="" asp-page="/Competitions/Index">Voir</a>
+    <h1>Bonjour visiteur fan d'esport!</h1>
+    <div class="d-flex justify-content-between">
+        <div class="card mb-3 w-50 mt-3 mr-3">
+            <img class="card-img-top" src="~/img/faker.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">eSport Tournament</h5>
+                <p class="card-text">Suivez les différents championnats et tournois du monde de l'esport.</p>
+                <p class="card-text"><small class="text-muted">Un site garanti 100% qualité</small></p>
             </div>
-
         </div>
+        <div class="card mb-3 w-50 mt-3">
+            <img class="card-img-top" src="~/img/eko.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Licenciés et joueurs</h5>
+                <p class="card-text">Inscrivez-vous afin de participer aux compétitions ou de les gérer.</p>
+                <p class="card-text"><small class="text-muted">On est là pour vous aider!</small></p>
+
+            </div>
+        </div>
+    </div>
+</div>
     }
 </div>

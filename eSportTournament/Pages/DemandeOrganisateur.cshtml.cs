@@ -20,9 +20,11 @@ namespace eSportTournament.Pages
     public class DemandeOrganisateurModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public DemandeOrganisateurModel(eSportTournament.Data.ApplicationDbContext context)
+        public DemandeOrganisateurModel(UserManager<IdentityUser> userManager, eSportTournament.Data.ApplicationDbContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -35,6 +37,10 @@ namespace eSportTournament.Pages
         public DemandeOrganisateur DemandeO { get; set; }
 
         public Utilisateur Utilisateur { get; set; }
+
+
+        [BindProperty]
+        public bool showDemande { get; set; }
 
         [BindProperty]
         public string prenom { get; set; }
@@ -49,10 +55,12 @@ namespace eSportTournament.Pages
            
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             DemandeOrganisateur demande = new DemandeOrganisateur();
+            var user = await _userManager.GetUserAsync(User);
+
             demande.userID = userId;
             _context.DemandeOrganisateurs.Add(demande);
-
-
+            bool isLicencie = await _userManager.IsInRoleAsync(user, "Licencie");
+            showDemande = isLicencie;
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

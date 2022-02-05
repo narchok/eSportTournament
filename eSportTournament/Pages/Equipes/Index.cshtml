@@ -5,11 +5,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Equipes</h1>
+@if (Model.showCreate)
+{
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Créer une équipe</a>
 </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -26,9 +28,9 @@
                 @Html.DisplayFor(modelItem => item.nomEquipe)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> 
+               @if (Model.showDelete)
+               { <a asp-page="./Delete" asp-route-id="@item.ID"> | Supprimer</a>}
             </td>
         </tr>
 }

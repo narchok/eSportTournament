@@ -27,26 +27,42 @@ namespace eSportTournament.Pages
 
         [BindProperty]
         public bool showAdminThings { get; set; }
+
         [BindProperty]
-        public int nbDemandesEquipes { get; set; }
+        public bool isLicencie { get; set; }
+        [BindProperty]
+        public int nbDemandesCreationEquipes { get; set; }
 
         [BindProperty]
         public int nbDemandesLicences { get; set; }
 
-        
+
+        [BindProperty]
+        public int nbDemandesOrganisateurs { get; set; }
+
+        [BindProperty]
+        public int nbDemandesEquipes { get; set; }
         public async Task OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            var nbDemandesEquipe = 0;
             if (user != null)
             {
                 bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
                 showAdminThings = isAdmin;
-            }
-            var nbDemandesE = await _context.DemandesEquipes.Where(de => de.approuver == false).CountAsync();
-            var nbDemandesL = await _context.DemandeLicences.Where(de => de.approuver == false).CountAsync();
+                bool isLi = await _userManager.IsInRoleAsync(user, "Licencie");
+                isLicencie = isLi;
+                nbDemandesEquipe = await _context.DemandesEquipes.Where(de => de.approuver == false && de.userID == user.Id).CountAsync();
 
+            }
+            var nbDemandesE = await _context.DemandesEquipeCreations.Where(de => de.approuver == false).CountAsync();
+            var nbDemandesL = await _context.DemandeLicences.Where(de => de.approuver == false).CountAsync();
+            var nbDemandesO = await _context.DemandeOrganisateurs.Where(de => de.approuver == false).CountAsync();
+
+            nbDemandesEquipes = nbDemandesEquipe;
+            nbDemandesOrganisateurs = nbDemandesO;
             nbDemandesLicences = nbDemandesL;
-            nbDemandesEquipes = nbDemandesE;
+            nbDemandesCreationEquipes = nbDemandesE;
         }
     }
 }

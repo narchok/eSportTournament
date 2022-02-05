@@ -20,6 +20,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if(Model.EquipeAll != null){
                 @foreach (var item in Model.EquipeAll)
                 {
                     <tr>
@@ -30,6 +31,7 @@
                             <a asp-page="./RequeteEquipeCreation" asp-route-id="@item.ID">Voir</a> |
                         </td>
                     </tr>
+                }
                 }
             </tbody>
         </table>
