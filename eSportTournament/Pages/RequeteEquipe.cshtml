@@ -1,0 +1,49 @@
+﻿@page
+@model eSportTournament.Pages.RequeteEquipeModel
+
+@{
+    ViewData["Title"] = "RequeteEquipe";
+}
+
+<h1>Demandes de recrutement</h1>
+
+@if (Model.ShowTeam == false)
+{
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Equipe
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.EquipeAll)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nomEquipe)
+                        </td>
+                        <td>
+                            <a asp-page="./RequeteEquipe" asp-route-id="@item.ID">Voir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+} else
+            {
+<p>
+    @Html.DisplayFor(modelItem => Model.Equipe.nomEquipe)
+</p>
+<form method="post">
+    <div class="form-group">
+        <input type="submit" value="Rejoindre cette équipe" class="btn btn-primary" />
+    </div>
+
+</form>
+
+            }

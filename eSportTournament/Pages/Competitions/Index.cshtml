@@ -1,0 +1,50 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+}
+
+@if (Model.showCreate == true) { 
+<p>
+    <a asp-page="Create">Créer un championnat</a>
+</p>
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Championnat</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-page="./IndexTournois">Tournois</a>
+    </li>
+</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Competition[0].nomCompetition)
+            </th>
+            <th>Jeu</th>
+            <th></th>
+                  </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Competition) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomCompetition)
+            </td>
+            <td>@Model.jeuxNoms[i]</td>
+            <td>
+                <a asp-page="./Classement" asp-route-id="@item.ID">Classement</a>
+              @if (Model.showDelete == true)
+              {  <a asp-page="./Delete" asp-route-id="@item.ID"> | Supprimer</a>}
+            </td>
+        </tr>
+    i += 1;
+
+}
+    </tbody>
+</table>

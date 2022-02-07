@@ -1,0 +1,73 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.VoirMatchsTournoisModel
+
+@{
+    ViewData["Title"] = "VoirMatchs";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<h1>Matchs</h1>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link"  asp-page="./VoirMatchs">Championnats</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" asp-page="./VoirMatchsTournois">Tournois</a>
+    </li>
+</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].EquipeA)
+            </th>
+            <th>
+                Equipe B
+            </th>
+         
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].gagnantID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].Competition)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Match)
+        {
+            string nomGagnant = "";
+            if (item.gagnantID != null)
+            {
+                if (item.gagnantID == item.EquipeAID)
+                {
+                    nomGagnant = item.EquipeA.nomEquipe;
+                }
+                else
+                {
+                    nomGagnant = item.EquipeB.nomEquipe;
+                }
+            }
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipeA.nomEquipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipeB.nomEquipe)
+                </td>
+                <td>
+                    @nomGagnant
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Competition.nomCompetition)
+                </td>
+                <td>
+                    <a asp-page="./EditMatch" asp-route-id="@item.ID">Mettre à jour</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

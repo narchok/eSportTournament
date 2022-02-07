@@ -1,0 +1,29 @@
+﻿@page
+@model eSportTournament.Pages.Equipes.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Equipe @Html.DisplayFor(model => model.Equipe.nomEquipe)</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Joueurs</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.joueursEquipe)
+            {
+                string nomPrenom = item.nom + " " + item.prenom;
+                <tr>
+                    <td>@nomPrenom</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-page="./Index">Retour à la liste</a>
+</div>

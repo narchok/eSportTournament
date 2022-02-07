@@ -1,0 +1,49 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.DetailsModel
+
+
+    @{
+        ViewData["Title"] = "Details";
+        var Dictionary = (Dictionary<int, string[,]>)ViewData["dict"];
+    }
+    <link rel="stylesheet" href="~/css/persocss.css" />
+    <div id="arbre">
+        <main id="tournament">
+            @for (int i = 0; i < @Dictionary.Count; i++)
+            {
+                <ul class="round">
+                    <li class="spacer">&nbsp;</li>
+                    @for (int j = 0; j < Dictionary[i].GetLength(0); j++)
+                    {
+                        var dic = Dictionary[i];
+                        string dataNameA = dic[j, 0];
+                        string dataNameB = dic[j, 3];
+                        string dataScoreA = dic[j, 1];
+                        string dataScoreB = dic[j, 2];
+                        string dataGagantId = dic[j, 6];
+
+                        string top = "game game-top";
+                        string bot = "game game-bottom";
+                        //if gameA = winnerID
+
+                        if (dic[j, 6] == dic[j, 4])
+                        {
+                            top = "game game-top winner";
+                            bot = "game game-bottom";
+                        }
+                        else if (dic[j, 6] != dic[j, 4] && dataGagantId != "")
+                        {
+                            bot = "game game-bottom winner";
+                            top = "game game-top";
+                        }
+                        <li class="@top">@dataNameA <span>@dataScoreA</span></li>
+                        <li class="game game-spacer">&nbsp;</li>
+                        <li class="@bot ">@dataNameB <span>@dataScoreB</span></li>
+
+                        <li class="spacer">&nbsp;</li>
+                    }
+                </ul>
+            }
+        </main>
+    </div>
+   

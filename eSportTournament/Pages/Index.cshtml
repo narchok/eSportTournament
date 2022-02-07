@@ -1,10 +1,181 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Equipes
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @if (Model.showAdminThings == true)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteEquipeCreation">Demandes créations d'équipes:</a>
+                                    <p class="m-0">@Model.nbDemandesCreationEquipes</p>
+                                </div>
+                            </li>
+                        }
+                        @if (Model.nbDemandesEquipes > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteEquipe">Demande de recrutement:</a>
+                                    <p class="m-0">@Model.nbDemandesEquipes</p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            @if (Model.showAdminThings == true)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Licencié et Organisateurs
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteLicence">Demande licences:</a>
+                                    <p class="m-0">@Model.nbDemandesLicences</p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./RequeteOrganisateur">Demandes organisateurs:</a>
+                                    <p class="m-0">@Model.nbDemandesOrganisateurs</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (Model.showAdminThings == true)
+        {
+            <div class="row mt-4">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Jeux
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./Jeux/Index">Liste des jeux</a>
+                                    <p class="m-0">@Model.nbJeux</p>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <a class="card-link" asp-page="./Jeux/Create">Ajouter un jeu</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Jeux
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./Competitions/VoirMatchs">Matchs à mettre à jour:</a>
+                                    <p class="m-0">@Model.nbMatchs</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Model.isLicencie == true)
+        {
+            <div class="row mt-4">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Profil
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <p class="mr-1">@Model.Profil.user.nom </p>
+                                    <p> @Model.Profil.user.prenom</p>
+
+                                </div>
+                            </li>
+                            @if (Model.Profil.equipe != null)
+                            {
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <p>@Model.Profil.equipe.nomEquipe </p>
+                                    </div>
+                                </li>
+                            }
+
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p>Nombre de matchs à jouer:</p>
+                                    <p class="m-0">@Model.Profil.nbMatchsAjouer</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+        }
+        else
+        {
+        <div>
+
+            <h1>Bonjour visiteur fan d'esport!</h1>
+            <div class="d-flex justify-content-between">
+                <div class="card mb-3 w-50 mt-3 mr-3">
+                    <img class="card-img-top" src="~/img/faker.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">eSport Tournament</h5>
+                        <p class="card-text">Suivez les différents championnats et tournois du monde de l'esport.</p>
+                        <p class="card-text"><small class="text-muted">Un site garanti 100% qualité</small></p>
+                    </div>
+                </div>
+                <div class="card mb-3 w-50 mt-3">
+                    <img class="card-img-top" src="~/img/eko.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Licenciés et joueurs</h5>
+                        <p class="card-text">Inscrivez-vous afin de participer aux compétitions ou de les gérer.</p>
+                        <p class="card-text"><small class="text-muted">On est là pour vous aider!</small></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>

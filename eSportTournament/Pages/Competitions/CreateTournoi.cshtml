@@ -1,0 +1,43 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.CreateTournoiModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Créer un tournoi</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Competition.nomCompetition" class="control-label"></label>
+                <input asp-for="Competition.nomCompetition" class="form-control" />
+                <span asp-validation-for="Competition.nomCompetition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Competition.nombreJoueurs" class="control-label"></label>
+                <input asp-for="Competition.nombreJoueurs" class="form-control" />
+                <span asp-validation-for="Competition.nombreJoueurs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Jeu:</label>
+                <select asp-items="ViewBag.JEUX" asp-for="@Model.SelectedGame" title="Choisissiez un jeu"></select>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Créer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Retour à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

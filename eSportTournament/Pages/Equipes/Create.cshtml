@@ -1,0 +1,35 @@
+﻿@page
+@model eSportTournament.Pages.Equipes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Créer une équipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Equipe.nomEquipe" class="control-label"></label>
+                <input asp-for="Equipe.nomEquipe" class="form-control" />
+                <label class="control-label">Joueurs</label>
+                <select multiple id="multiple_select" class="selectpicker" asp-items="ViewBag.PLAYERS" asp-for="@Model.SelectedPlayers" title="Choississez des joueurs"></select>
+                <span asp-validation-for="Equipe.nomEquipe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Créer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Retour à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

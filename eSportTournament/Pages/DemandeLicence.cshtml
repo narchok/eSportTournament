@@ -1,0 +1,45 @@
+﻿@page
+@model eSportTournament.Pages.DemandeLicenceModel
+
+@{
+    ViewData["Title"] = "DemandeLicence";
+}
+
+
+<h4>Demande de licence</h4>
+<hr />
+@if (Model.showDemande == true) {
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Utilisateur.nom" class="control-label"></label>
+                <input name="nom" id="nom" class="form-control" />
+                <!--  <span asp-validation-for="Utilisateur.nom" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <label asp-for="Utilisateur.prenom" class="control-label"></label>
+                <input name="prenom" id="prenom" class="form-control" />
+                <!--  <span asp-validation-for="Utilisateur.prenom" class="text-danger"></span>-->
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+} else
+            {
+                <h1>Vous avez déjà une demande en cours ou êtes déjà licencié!</h1>
+            }
+
+
+<div>
+    <a asp-page="Index">Retour</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

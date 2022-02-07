@@ -1,0 +1,40 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h4>Ajout des matchs du premier tour</h4>
+<hr />
+@if (Model.showTree == false) {
+    <div class="row">
+    <div class="col-md-4">
+         <p>Il reste @Model.nbMatchs à remplir pour lancer la compétition</p>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Match.EquipeAID" class="control-label"></label>
+                <select asp-for="Match.EquipeAID" class="form-control" asp-items="ViewBag.EquipeAID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Match.EquipeBID" class="control-label"></label>
+                <select asp-for="Match.EquipeBID" class="form-control" asp-items="ViewBag.EquipeBID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> 
+}
+
+
+<div>
+    <a asp-page="./Index">Retour à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

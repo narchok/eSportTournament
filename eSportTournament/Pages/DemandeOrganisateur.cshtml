@@ -1,0 +1,32 @@
+﻿@page
+@model eSportTournament.Pages.DemandeOrganisateurModel
+
+@{
+    ViewData["Title"] = "DemandeLicence";
+}
+
+
+<h4>Devenir Organisateur de compétitions</h4>
+<hr />
+@if(Model.showDemande == true){
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="text-danger"></div>
+            <p>Faire une demande</p>
+            <div class="form-group">
+                <input type="submit" value="Envoyer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+} else {
+    <h2>Vous devez faire une demande de licence avant d'être organisateur.</h2>
+}
+<div>
+    <a asp-page="Index">Retour à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
