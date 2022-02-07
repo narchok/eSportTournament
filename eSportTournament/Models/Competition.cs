@@ -29,7 +29,6 @@ namespace eSportTournament.Models
 
         public int jeuId { get; set; }
 
-        public ICollection<CompetitionEquipe> CompetitionsEquipe { get; set; }
 
         //public List<Match> Matchs { get; set; }
 
