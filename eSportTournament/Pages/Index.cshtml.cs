@@ -1,4 +1,5 @@
 ﻿using eSportTournament.Models;
+using eSportTournament.VueModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,10 @@ namespace eSportTournament.Pages
 
         [BindProperty]
         public int nbJeux { get; set; }
+
+        [BindProperty]
+        public UserProfile Profil { get; set; }
+
         public async Task OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -62,10 +67,21 @@ namespace eSportTournament.Pages
                 showAdminThings = isAdmin;
                 bool isLi = await _userManager.IsInRoleAsync(user, "Licencie");
                isLicencie = isLi;
-                if(utilisateur != null)
+                int nbMatchsToPlay = 0;
+                if (utilisateur != null)
                 {
                     nbDemandesEquipe = await _context.DemandesEquipes.Where(de => de.approuver == false && de.userID == utilisateur.ID.ToString()).CountAsync();
 
+                    Equipe tempEquipe = await _context.Equipes.FirstOrDefaultAsync(e => e.ID == utilisateur.equipeID);
+                    if(tempEquipe != null)
+                    {
+                        Profil.equipe = tempEquipe;
+                        nbMatchsToPlay = await _context.Matchs.Where(m => m.gagnantID == null && (m.EquipeAID == tempEquipe.ID || m.EquipeBID == tempEquipe.ID)).CountAsync();
+
+                    }
+                    Profil = new UserProfile();
+                    Profil.user = utilisateur;
+                    Profil.nbMatchsAjouer = nbMatchsToPlay;
                 }
 
             }

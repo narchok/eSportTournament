@@ -5,9 +5,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Competition</h4>
+<h4>Ajout des matchs du premier tour</h4>
 <hr />
 @if (Model.showTree == false) {
     <div class="row">
@@ -24,7 +23,7 @@
                 <select asp-for="Match.EquipeBID" class="form-control" asp-items="ViewBag.EquipeBID"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
             </div>
         </form>
     </div>

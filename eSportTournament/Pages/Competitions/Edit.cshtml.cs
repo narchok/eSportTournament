@@ -55,14 +55,14 @@ namespace eSportTournament.Pages.Competitions
             Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
             var nb = getNbMatchPremierTour(Competition.nombreJoueurs);
             var test = await _context.Matchs.Where(m => m.CompetitionID == id).ToListAsync();
-            System.Console.WriteLine("test icicici" + test.Count);
             nbMatchs = nb - test.Count;
             if(nbMatchs == 0) { 
                 showTree = true; 
             }
-            System.Console.WriteLine("dddz" + nbMatchs);
-            ViewData["EquipeBID"] = new SelectList(_context.Equipes, "ID", "nomEquipe");
-            ViewData["EquipeAID"] = new SelectList(_context.Equipes, "ID", "nomEquipe");
+            var temp = await _context.Equipes.Where(e => e.valider == true).ToListAsync();
+
+            ViewData["EquipeBID"] = new SelectList(temp, "ID", "nomEquipe");
+            ViewData["EquipeAID"] = new SelectList(temp, "ID", "nomEquipe");
             if (Competition == null)
             {
                 return NotFound();

@@ -111,34 +111,71 @@
             </div>
 
         }
+        @if (Model.isLicencie == true)
+        {
+            <div class="row mt-4">
 
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Profil
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <p class="mr-1">@Model.Profil.user.nom </p>
+                                    <p> @Model.Profil.user.prenom</p>
+
+                                </div>
+                            </li>
+                            @if (Model.Profil.equipe != null)
+                            {
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <p>@Model.Profil.equipe.nomEquipe </p>
+                                    </div>
+                                </li>
+                            }
+
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p>Nombre de matchs à jouer:</p>
+                                    <p class="m-0">@Model.Profil.nbMatchsAjouer</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        }
 
     </div>
-    }
-    else
-    {
-<div>
+        }
+        else
+        {
+        <div>
 
-    <h1>Bonjour visiteur fan d'esport!</h1>
-    <div class="d-flex justify-content-between">
-        <div class="card mb-3 w-50 mt-3 mr-3">
-            <img class="card-img-top" src="~/img/faker.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">eSport Tournament</h5>
-                <p class="card-text">Suivez les différents championnats et tournois du monde de l'esport.</p>
-                <p class="card-text"><small class="text-muted">Un site garanti 100% qualité</small></p>
+            <h1>Bonjour visiteur fan d'esport!</h1>
+            <div class="d-flex justify-content-between">
+                <div class="card mb-3 w-50 mt-3 mr-3">
+                    <img class="card-img-top" src="~/img/faker.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">eSport Tournament</h5>
+                        <p class="card-text">Suivez les différents championnats et tournois du monde de l'esport.</p>
+                        <p class="card-text"><small class="text-muted">Un site garanti 100% qualité</small></p>
+                    </div>
+                </div>
+                <div class="card mb-3 w-50 mt-3">
+                    <img class="card-img-top" src="~/img/eko.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Licenciés et joueurs</h5>
+                        <p class="card-text">Inscrivez-vous afin de participer aux compétitions ou de les gérer.</p>
+                        <p class="card-text"><small class="text-muted">On est là pour vous aider!</small></p>
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card mb-3 w-50 mt-3">
-            <img class="card-img-top" src="~/img/eko.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Licenciés et joueurs</h5>
-                <p class="card-text">Inscrivez-vous afin de participer aux compétitions ou de les gérer.</p>
-                <p class="card-text"><small class="text-muted">On est là pour vous aider!</small></p>
-
-            </div>
-        </div>
+        }
     </div>
-</div>
-    }
-</div>
