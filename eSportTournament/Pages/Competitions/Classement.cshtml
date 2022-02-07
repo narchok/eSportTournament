@@ -5,8 +5,17 @@
     ViewData["Title"] = "Classement";
     var i = 0;
 }
+@if (Model.Competition.terminer == false)
+{
+    <form method="post">
 
-<h1>Classement - @Model.Competition.nomCompetition</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Classement - @Model.Competition.nomCompetition</h1>
+            <input type="submit" value="Mettre fin à la compétition" class="btn btn-primary h-50" />
+        </div>
+    </form>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -32,23 +41,23 @@
         @foreach (var item in Model.Data)
         {
             i += 1;
-        <tr>
-            <td>
-                @i
-            </td>
-            <td>
-                @item.equipe.nomEquipe
-            </td>
-            <td>
-                @item.nombreVictoire
-            </td>
-            <td>
-                @item.nombreDefaite
-            </td>
-            <td class="font-weight-bold">
-                @item.points
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @item.equipe.nomEquipe
+                </td>
+                <td>
+                    @item.nombreVictoire
+                </td>
+                <td>
+                    @item.nombreDefaite
+                </td>
+                <td class="font-weight-bold">
+                    @item.points
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -9,6 +9,7 @@ using eSportTournament.Data;
 using eSportTournament.Models;
 using eSportTournament.VueModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace eSportTournament.Pages.Competitions
 {
@@ -16,14 +17,20 @@ namespace eSportTournament.Pages.Competitions
     public class ClassementModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ClassementModel(eSportTournament.Data.ApplicationDbContext context)
+
+        public ClassementModel(UserManager<IdentityUser> userManager, eSportTournament.Data.ApplicationDbContext context)
         {
+            _userManager = userManager;
+
             _context = context;
         }
 
         [BindProperty]
         public Competition Competition { get; set; }
+        [BindProperty]
+        public bool showEnd { get; set; }
 
         public IList<ClasssementChampionnat> Data { get; set; }
 
@@ -52,11 +59,33 @@ namespace eSportTournament.Pages.Competitions
 
             Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
 
+
+            var user = await _userManager.GetUserAsync(User);
+            if(user != null)
+            {
+                bool isOrga = await _userManager.IsInRoleAsync(user, "Organisateur");
+                bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+                showEnd = isOrga || isAdmin;
+            }
             if (Competition == null)
             {
                 return NotFound();
             }
             return Page();
+        }
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+
+            Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
+            Competition.terminer = true;
+            _context.Attach(Competition).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToPage("./Classement", new { id = Competition.ID });
+
+
         }
     }
 }
