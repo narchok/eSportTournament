@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using eSportTournament.Data;
 using eSportTournament.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eSportTournament.Pages.Equipes
 {
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
@@ -41,7 +43,7 @@ namespace eSportTournament.Pages.Equipes
                 bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
                 showDelete = isAdmin;
             }
-            Equipe = await _context.Equipes.ToListAsync();
+            Equipe = await _context.Equipes.Where(e => e.valider == true).ToListAsync();
         }
     }
 }

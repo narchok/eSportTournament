@@ -21,6 +21,7 @@ namespace eSportTournament.Pages.Equipes
         List<SelectListItem> select { get; set; }
 
 
+
     
 
 

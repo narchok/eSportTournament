@@ -12,7 +12,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
     <div class="container">
-        
+
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -65,34 +65,52 @@
                     </div>
                 </div>
             }
-            </div>  
-            
-
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            </div>
         </div>
 
+        @if (Model.showAdminThings == true)
+        {
+            <div class="row mt-4">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Jeux
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./Jeux/Index">Liste des jeux</a>
+                                    <p class="m-0">@Model.nbJeux</p>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <a class="card-link" asp-page="./Jeux/Create">Ajouter un jeu</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Jeux
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="card-link" asp-page="./Competitions/VoirMatchs">Matchs à mettre à jour:</a>
+                                    <p class="m-0">@Model.nbMatchs</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        }
 
 
     </div>

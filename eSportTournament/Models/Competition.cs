@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace eSportTournament.Models
 {
+   
     public class Competition
     {
         [Required]
@@ -25,6 +26,8 @@ namespace eSportTournament.Models
 
         [DefaultValue(false)]
         public bool terminer { get; set; }
+
+        public int jeuId { get; set; }
 
         public ICollection<CompetitionEquipe> CompetitionsEquipe { get; set; }
 

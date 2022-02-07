@@ -1,0 +1,27 @@
+﻿@page
+@model eSportTournament.Pages.Jeux.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h3>Supprimer le jeu?</h3>
+<div>
+    <h4>Jeu</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Jeu.nomJeu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Jeu.nomJeu)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Jeu.ID" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <a asp-page="./Index">Retour à la liste</a>
+    </form>
+</div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using eSportTournament.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace eSportTournament.Pages
@@ -42,27 +44,43 @@ namespace eSportTournament.Pages
 
         [BindProperty]
         public int nbDemandesEquipes { get; set; }
+
+        [BindProperty]
+        public int nbMatchs { get; set; }
+
+        [BindProperty]
+        public int nbJeux { get; set; }
         public async Task OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             var nbDemandesEquipe = 0;
             if (user != null)
             {
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                Utilisateur utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.userID == userId);
                 bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
                 showAdminThings = isAdmin;
                 bool isLi = await _userManager.IsInRoleAsync(user, "Licencie");
-                isLicencie = isLi;
-                nbDemandesEquipe = await _context.DemandesEquipes.Where(de => de.approuver == false && de.userID == user.Id).CountAsync();
+               isLicencie = isLi;
+                if(utilisateur != null)
+                {
+                    nbDemandesEquipe = await _context.DemandesEquipes.Where(de => de.approuver == false && de.userID == utilisateur.ID.ToString()).CountAsync();
+
+                }
 
             }
             var nbDemandesE = await _context.DemandesEquipeCreations.Where(de => de.approuver == false).CountAsync();
             var nbDemandesL = await _context.DemandeLicences.Where(de => de.approuver == false).CountAsync();
             var nbDemandesO = await _context.DemandeOrganisateurs.Where(de => de.approuver == false).CountAsync();
+            var nbJ = await _context.Jeux.CountAsync();
+            var nbM = await _context.Matchs.Where(de => de.gagnantID == null).CountAsync();
 
             nbDemandesEquipes = nbDemandesEquipe;
             nbDemandesOrganisateurs = nbDemandesO;
             nbDemandesLicences = nbDemandesL;
             nbDemandesCreationEquipes = nbDemandesE;
+            nbJeux = nbJ;
+            nbMatchs = nbM;
         }
     }
 }

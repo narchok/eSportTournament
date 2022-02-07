@@ -5,11 +5,8 @@
     ViewData["Title"] = "RequeteEquipe";
 }
 
-<h1>RequeteEquipe</h1>
+<h1>Demandes de recrutement</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 @if (Model.ShowTeam == false)
 {
     <form method="post">
@@ -17,7 +14,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.EquipeAll[0].nomEquipe)
+                        Equipe
                     </th>
                     <th></th>
                 </tr>
@@ -30,7 +27,7 @@
                             @Html.DisplayFor(modelItem => item.nomEquipe)
                         </td>
                         <td>
-                            <a asp-page="./RequeteEquipe" asp-route-id="@item.ID">Voir</a> |
+                            <a asp-page="./RequeteEquipe" asp-route-id="@item.ID">Voir</a>
                         </td>
                     </tr>
                 }

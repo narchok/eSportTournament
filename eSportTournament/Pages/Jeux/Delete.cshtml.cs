@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using eSportTournament.Data;
 using eSportTournament.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace eSportTournament.Pages.Equipes
+namespace eSportTournament.Pages.Jeux
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
@@ -20,10 +23,7 @@ namespace eSportTournament.Pages.Equipes
         }
 
         [BindProperty]
-        public Equipe Equipe { get; set; }
-
-        [BindProperty]
-        public bool haveMatchs { get; set; }
+        public Jeu Jeu { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,9 +32,9 @@ namespace eSportTournament.Pages.Equipes
                 return NotFound();
             }
 
-            Equipe = await _context.Equipes.FirstOrDefaultAsync(m => m.ID == id);
+            Jeu = await _context.Jeux.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Equipe == null)
+            if (Jeu == null)
             {
                 return NotFound();
             }
@@ -48,23 +48,12 @@ namespace eSportTournament.Pages.Equipes
                 return NotFound();
             }
 
-            Equipe = await _context.Equipes.FindAsync(id);
+            Jeu = await _context.Jeux.FindAsync(id);
 
-            if (Equipe != null)
+            if (Jeu != null)
             {
-                var matchs = await _context.Matchs.Where(m => (m.EquipeAID == id || m.EquipeBID == id) && m.gagnantID == null).ToListAsync();
-                if (matchs.Count > 0)
-                {
-                    Equipe.valider = false;
-                    _context.Attach(Equipe).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
-
-                } else
-                {
-                    _context.Equipes.Remove(Equipe);
-                    await _context.SaveChangesAsync();
-                }
-          
+                _context.Jeux.Remove(Jeu);
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");

@@ -1,5 +1,5 @@
 ﻿@page
-@model eSportTournament.Pages.Competitions.CreateModel
+@model eSportTournament.Pages.Competitions.CreateTournoiModel
 
 @{
     ViewData["Title"] = "Create";
@@ -22,16 +22,20 @@
                 <input asp-for="Competition.nombreJoueurs" class="form-control" />
                 <span asp-validation-for="Competition.nombreJoueurs" class="text-danger"></span>
             </div>
-<br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label class="control-label">Jeu:</label>
+                <select asp-items="ViewBag.JEUX" asp-for="@Model.SelectedGame" title="Choisissiez un jeu"></select>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Créer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {

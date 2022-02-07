@@ -29,6 +29,13 @@ namespace eSportTournament.Pages.Competitions
         [BindProperty]
         public bool showDelete { get; set; }
 
+        [BindProperty]
+        public bool showCreate { get; set; }
+
+
+        [BindProperty]
+        public string[] jeuxNoms { get; set; }
+
         public async Task OnGetAsync()
         {
             Competition = await _context.Competitions.Where(c => c.isTournoi == true).ToListAsync();
@@ -36,9 +43,19 @@ namespace eSportTournament.Pages.Competitions
             if(user != null)
             {
                 bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+                bool isOrgaOrAdmin = await _userManager.IsInRoleAsync(user, "Organisateur");
+
                 showDelete = isAdmin;
+                showCreate = isOrgaOrAdmin || isAdmin;
+
             }
-           
+            string[] temp = new string[Competition.Count];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                var jeu = await _context.Jeux.FirstOrDefaultAsync(j => j.ID == Competition[i].jeuId);
+                temp[i] = jeu != null ? jeu.nomJeu : "";
+            }
+            jeuxNoms = temp;
         }
     }
 }

@@ -25,6 +25,7 @@
             </div>
             <label class="control-label">Equipes</label>
             <select multiple id="mySelect" class="selectpicker" asp-items="ViewBag.TEAMS" asp-for="@Model.SelectedTeams" onchange="getComboA(this)" title="Choississez des équipes"></select>
+          
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

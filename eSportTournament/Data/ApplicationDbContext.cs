@@ -18,7 +18,9 @@ namespace eSportTournament.Data
 
        public DbSet<Match> Matchs { get; set; }
 
-         public DbSet<Competition> Competitions { get; set; }
+        public DbSet<Jeu> Jeux { get; set; }
+
+        public DbSet<Competition> Competitions { get; set; }
 
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<DemandeLicence> DemandeLicences { get; set; }

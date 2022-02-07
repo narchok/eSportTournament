@@ -26,6 +26,9 @@ namespace eSportTournament.Pages.Competitions
         [BindProperty]
         public int[] SelectedTeams { get; set; }
         List<SelectListItem> select { get; set; }
+
+   
+
         List<Equipe> EquipeAll { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -36,13 +39,47 @@ namespace eSportTournament.Pages.Competitions
             }
 
             Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
+            Console.WriteLine("{0} azertyuiop", Competition.jeuId);
+            EquipeAll = new List<Equipe>();
             EquipeAll = await _context.Equipes.Where(e => e.valider == true).ToListAsync();
-            select = new List<SelectListItem>(); 
-            foreach (Equipe element in EquipeAll)
+            int equipesCount = await _context.Equipes.Where(e => e.valider == true).CountAsync();
+            
+          //  Console.WriteLine("{0} counnt {1}", EquipeAll[2].nomEquipe);
+            int nb = EquipeAll.Count;
+            var copy = EquipeAll;
+            for (int i = 0; i < EquipeAll.Count; i++)
             {
-               select.Add(new SelectListItem { Value = element.ID.ToString(), Text = element.nomEquipe });
+                Console.WriteLine("{0} JJJJ", i);
+
+                Console.WriteLine("{0} iiiiiiiiiii", EquipeAll[i].nomEquipe);
+                var matchs = await _context.Matchs.Where(m => (m.EquipeAID == EquipeAll[i].ID || m.EquipeBID == EquipeAll[i].ID) && m.gagnantID == null).ToListAsync();
+                //var matchs = await _context.Matchs.Where(m => m.CompetitionID == Competition.ID).ToListAsync();
+               // if(matchs.Count > 0) EquipeAll.RemoveAt(i);
+                foreach (Match m in matchs)
+                {
+                    var compet = await _context.Competitions.Where(c => c.ID == m.CompetitionID).ToListAsync();
+                    Console.WriteLine("{0} counted", compet.Count);
+                    Console.WriteLine("{0} id compet", m.CompetitionID);
+
+                    foreach (var c in compet)
+                    {
+                        Console.WriteLine("{0} here", EquipeAll[i].nomEquipe);
+                        if (c.jeuId == Competition.jeuId) copy.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+            select = new List<SelectListItem>(); 
+            foreach (Equipe element in copy)
+            {
+                Console.WriteLine("{0} element", element.nomEquipe);
+
+                select.Add(new SelectListItem { Value = element.ID.ToString(), Text = element.nomEquipe });
             }
             ViewData["TEAMS"] = select;
+
+          
+
 
             if (Competition == null)
             {
@@ -59,8 +96,9 @@ namespace eSportTournament.Pages.Competitions
             {
                 return Page();
             }
+            Console.WriteLine("{0} hellomt", Competition.jeuId);
 
-            _context.Attach(Competition).State = EntityState.Modified;
+          //  _context.Attach(Competition).State = EntityState.Modified;
             List<int> idEquipes = new List<int>();
             for (int i = 0; i < SelectedTeams.Length; i++)
             {
@@ -91,12 +129,7 @@ namespace eSportTournament.Pages.Competitions
             return _context.Competitions.Any(e => e.ID == id);
         }
         // Rotate the entries one position.
-        private void RotateArray(int[] teams)
-        {
-            int tmp = teams[teams.Length - 1];
-            Array.Copy(teams, 0, teams, 1, teams.Length - 1);
-            teams[0] = tmp;
-        }      
+      
 
         public void ListMatches(List<int> ListTeam)
         {
