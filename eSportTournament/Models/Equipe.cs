@@ -14,7 +14,6 @@ namespace eSportTournament.Models
         [Required]
         public string nomEquipe { get; set; }
 
-        // public ICollection<Match> Matchs { get; set; }
         public ICollection<Utilisateur> Joueurs { get; set; }
 
         public ICollection<CompetitionEquipe> CompetitionsEquipe { get; set; }
@@ -22,8 +21,7 @@ namespace eSportTournament.Models
         [DefaultValue(false)]
         public bool valider { get; set; }
 
-        //[ForeignKey("Competition")]
-        //  public int CompetitionID { get; set; }
+      
 
     }
 }

@@ -1,0 +1,19 @@
+﻿@page
+@model eSportTournament.Pages.Competitions.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h3>Voulez-vous vraiment supprimer cette compétition?</h3>
+<div>
+    <h4>Competition - @Model.Competition.nomCompetition</h4>
+    <hr />
+    
+    <form method="post">
+        <input type="hidden" asp-for="Competition.ID" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <a asp-page="./Index">Retour à la liste</a>
+    </form>
+</div>

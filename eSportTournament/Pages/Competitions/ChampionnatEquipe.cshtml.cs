@@ -39,32 +39,31 @@ namespace eSportTournament.Pages.Competitions
             }
 
             Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
-            Console.WriteLine("{0} azertyuiop", Competition.jeuId);
             EquipeAll = new List<Equipe>();
             EquipeAll = await _context.Equipes.Where(e => e.valider == true).ToListAsync();
             int equipesCount = await _context.Equipes.Where(e => e.valider == true).CountAsync();
             
-          //  Console.WriteLine("{0} counnt {1}", EquipeAll[2].nomEquipe);
             int nb = EquipeAll.Count;
             var copy = EquipeAll;
             for (int i = 0; i < EquipeAll.Count; i++)
             {
-                Console.WriteLine("{0} JJJJ", i);
 
-                Console.WriteLine("{0} iiiiiiiiiii", EquipeAll[i].nomEquipe);
                 var matchs = await _context.Matchs.Where(m => (m.EquipeAID == EquipeAll[i].ID || m.EquipeBID == EquipeAll[i].ID) && m.gagnantID == null).ToListAsync();
-                //var matchs = await _context.Matchs.Where(m => m.CompetitionID == Competition.ID).ToListAsync();
-               // if(matchs.Count > 0) EquipeAll.RemoveAt(i);
                 foreach (Match m in matchs)
                 {
                     var compet = await _context.Competitions.Where(c => c.ID == m.CompetitionID).ToListAsync();
-                    Console.WriteLine("{0} counted", compet.Count);
-                    Console.WriteLine("{0} id compet", m.CompetitionID);
 
                     foreach (var c in compet)
                     {
-                        Console.WriteLine("{0} here", EquipeAll[i].nomEquipe);
-                        if (c.jeuId == Competition.jeuId) copy.RemoveAt(i);
+                        if (c.jeuId == Competition.jeuId)
+                        {
+                            if(i < copy.Count && i >= 0)
+                            {
+                                copy.RemoveAt(i);
+                                i -= 1;
+                            }
+                           
+                        }
                         break;
                     }
                 }
@@ -72,7 +71,6 @@ namespace eSportTournament.Pages.Competitions
             select = new List<SelectListItem>(); 
             foreach (Equipe element in copy)
             {
-                Console.WriteLine("{0} element", element.nomEquipe);
 
                 select.Add(new SelectListItem { Value = element.ID.ToString(), Text = element.nomEquipe });
             }
@@ -96,7 +94,6 @@ namespace eSportTournament.Pages.Competitions
             {
                 return Page();
             }
-            Console.WriteLine("{0} hellomt", Competition.jeuId);
 
           //  _context.Attach(Competition).State = EntityState.Modified;
             List<int> idEquipes = new List<int>();
@@ -150,11 +147,9 @@ namespace eSportTournament.Pages.Competitions
 
             for (int day = 0; day < numDays; day++)
             {
-                Console.WriteLine("Jour {0}", (day + 1));
 
                 int teamIdx = day % teamsSize;
 
-                Console.WriteLine("{0} vs {1}", teams[teamIdx], ListTeam[0]);
                 Equipe equipeA2 = _context.Equipes.FirstOrDefault(e => e.ID == teams[teamIdx]);
                 Equipe equipeB2 = _context.Equipes.FirstOrDefault(e => e.ID == ListTeam[0]);
                 Match premierMatch = new Match();
@@ -181,7 +176,6 @@ namespace eSportTournament.Pages.Competitions
                     _context.Matchs.Add(match);
                     _context.SaveChanges();
 
-                    Console.WriteLine("{0} vs {1}", teams[firstTeam], teams[secondTeam]);
                 }
             }
 

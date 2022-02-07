@@ -60,9 +60,18 @@ namespace eSportTournament.Pages.Competitions
                 showTree = true; 
             }
             var temp = await _context.Equipes.Where(e => e.valider == true).ToListAsync();
-
-            ViewData["EquipeBID"] = new SelectList(temp, "ID", "nomEquipe");
-            ViewData["EquipeAID"] = new SelectList(temp, "ID", "nomEquipe");
+            var copy = temp;
+            for (int i = 0; i < temp.Count; i++)
+            {
+                var matchs = await _context.Matchs.Where(m => m.gagnantID == null && m.CompetitionID == id && (m.EquipeAID == temp[i].ID || m.EquipeBID == temp[i].ID)).ToListAsync();
+                if (matchs.Count > 0) { 
+                    copy.RemoveAt(i);
+                    i -= 1;
+                }
+            }
+       
+            ViewData["EquipeBID"] = new SelectList(copy, "ID", "nomEquipe");
+            ViewData["EquipeAID"] = new SelectList(copy, "ID", "nomEquipe");
             if (Competition == null)
             {
                 return NotFound();
@@ -83,17 +92,13 @@ namespace eSportTournament.Pages.Competitions
 
            Match.EquipeA = equipeA;
             Match.EquipeB = equipeB;
-           // Match.EquipeAID = SelectedTeamA;
-           // Match.EquipeBID = SelectedTeamB;
+          
             Match.CompetitionID = id;
             Match.Competition = Competition;
-            //_context.Attach(Competition).State = EntityState.Modified;
             _context.Matchs.Add(Match);
             await _context.SaveChangesAsync();
 
-            System.Console.WriteLine("test icicici" + test.Count);
             nbMatchs = nb - test.Count;
-            System.Console.WriteLine("nbmdzqdzq" + nbMatchs);
             if(nbMatchs == 1)
             {
                 return RedirectToPage("./EditMatch", new { id = Match.ID });

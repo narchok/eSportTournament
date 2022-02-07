@@ -78,7 +78,6 @@ namespace eSportTournament.Pages.Competitions
             _context.Competitions.Add(Competition);
             await _context.SaveChangesAsync();
 
-            System.Console.WriteLine("competition" + Competition.ID);
 
             return RedirectToPage("./ChampionnatEquipe", new { id = Competition.ID });
         }

@@ -42,33 +42,26 @@ namespace eSportTournament.Pages
             if(id == null)
             {
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                System.Console.WriteLine(userId);
                 Utilisateur utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.userID == userId);
-                System.Console.WriteLine(utilisateur.userID);
                 List<Equipe> test = new List<Equipe>();
                 DemandeEquipe = await _context.DemandesEquipes.Where(d => d.userID == utilisateur.ID.ToString()).ToListAsync();
 
-                // System.Console.WriteLine(DemandeEquipe[0].userID);
 
                 foreach (DemandeEquipe d in DemandeEquipe)
                 {
                     Equipe equipess = new Equipe();
                     equipess = await _context.Equipes.FirstOrDefaultAsync(e => e.ID == d.equipeID);
 
-                    System.Console.WriteLine("là" + equipess.nomEquipe);
                     if (equipess == null)
                     {
-                        System.Console.WriteLine("null");
+                        System.Console.WriteLine("error - null");
                     }
                     else
                     {
-                        System.Console.WriteLine("ouioui" + equipess.nomEquipe);
                         test.Add(equipess);
                     }
                     EquipeAll = test;
                 }
-                System.Console.WriteLine(DemandeEquipe.Count());
-             //   ShowTeam = true;
 
             } else {
                 ShowTeam = true;
