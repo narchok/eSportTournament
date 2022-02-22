@@ -28,6 +28,8 @@ namespace eSportTournament.Models
         public bool terminer { get; set; }
 
         public int jeuId { get; set; }
+       
+        public string ownerID {get; set; }
 
 
         //public List<Match> Matchs { get; set; }
