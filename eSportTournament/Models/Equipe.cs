@@ -20,7 +20,7 @@ namespace eSportTournament.Models
         [DefaultValue(false)]
         public bool valider { get; set; }
 
-      
+        public string ownerID {get; set; }
 
     }
 }
