@@ -20,7 +20,8 @@ namespace eSportTournament.Models
         [DefaultValue(false)]
         public bool valider { get; set; }
 
-      
+        // Pour gérer qui a créer l'équipe
+         public string ownerID { get; set; }
 
     }
 }

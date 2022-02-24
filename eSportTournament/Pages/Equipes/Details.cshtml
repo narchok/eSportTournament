@@ -24,6 +24,8 @@
         </tbody>
     </table>
 </div>
+@if (Model.showDelete)
+{<a asp-page="./Delete" asp-route-id="@Model.Equipe.ID"> | Supprimer</a>}
 <div>
     <a asp-page="./Index">Retour à la liste</a>
 </div>

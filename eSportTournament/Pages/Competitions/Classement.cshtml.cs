@@ -32,6 +32,9 @@ namespace eSportTournament.Pages.Competitions
         [BindProperty]
         public bool showEnd { get; set; }
 
+        [BindProperty]
+        public bool showDelete { get; set; }
+
         public IList<ClasssementChampionnat> Data { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -65,7 +68,11 @@ namespace eSportTournament.Pages.Competitions
             {
                 bool isOrga = await _userManager.IsInRoleAsync(user, "Organisateur");
                 bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-
+                Competition c = await _context.Competitions.FirstOrDefaultAsync(co => co.ownerID == user.Id && co.ID == id);
+                if(c != null)
+                {
+                    showDelete = true;
+                }
                 showEnd = isOrga || isAdmin;
             }
             if (Competition == null)

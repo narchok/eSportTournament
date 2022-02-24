@@ -62,7 +62,6 @@ namespace eSportTournament.Pages.Competitions
                                 copy.RemoveAt(i);
                                 i -= 1;
                             }
-                           
                         }
                         break;
                     }
@@ -75,8 +74,6 @@ namespace eSportTournament.Pages.Competitions
                 select.Add(new SelectListItem { Value = element.ID.ToString(), Text = element.nomEquipe });
             }
             ViewData["TEAMS"] = select;
-
-          
 
 
             if (Competition == null)
@@ -95,7 +92,6 @@ namespace eSportTournament.Pages.Competitions
                 return Page();
             }
 
-          //  _context.Attach(Competition).State = EntityState.Modified;
             List<int> idEquipes = new List<int>();
             for (int i = 0; i < SelectedTeams.Length; i++)
             {

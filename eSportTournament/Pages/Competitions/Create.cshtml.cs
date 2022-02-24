@@ -9,6 +9,7 @@ using eSportTournament.Data;
 using eSportTournament.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace eSportTournament.Pages.Competitions
 {
@@ -72,9 +73,12 @@ namespace eSportTournament.Pages.Competitions
             {
                 return Page();
             }
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             Competition.terminer = false;
             Competition.isTournoi = false;
             Competition.jeuId = SelectedGame;
+            Competition.ownerID = userId;
             _context.Competitions.Add(Competition);
             await _context.SaveChangesAsync();
 

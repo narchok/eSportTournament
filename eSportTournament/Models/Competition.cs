@@ -29,8 +29,9 @@ namespace eSportTournament.Models
 
         public int jeuId { get; set; }
 
+        // Pour gérer qui a créer la compétition
 
-        //public List<Match> Matchs { get; set; }
+        public string ownerID { get; set; }
 
 
 
