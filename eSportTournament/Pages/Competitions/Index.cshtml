@@ -39,8 +39,6 @@
             <td>@Model.jeuxNoms[i]</td>
             <td>
                 <a asp-page="./Classement" asp-route-id="@item.ID">Classement</a>
-              @if (Model.showDelete == true)
-              {  <a asp-page="./Delete" asp-route-id="@item.ID"> | Supprimer</a>}
             </td>
         </tr>
     i += 1;

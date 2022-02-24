@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using eSportTournament.Data;
 using eSportTournament.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace eSportTournament.Pages.Competitions
 {
@@ -15,14 +17,22 @@ namespace eSportTournament.Pages.Competitions
     public class DetailsModel : PageModel
     {
         private readonly eSportTournament.Data.ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public DetailsModel(eSportTournament.Data.ApplicationDbContext context)
+        public DetailsModel(UserManager<IdentityUser> userManager, eSportTournament.Data.ApplicationDbContext context)
         {
+            _userManager = userManager;
+
             _context = context;
         }
 
         public List<Match> Match { get;set; }
 
+        [BindProperty]
+        public bool showDelete { get; set; }
+
+        [BindProperty]
+        public int idComp { get; set; }
         Dictionary<int, string[,]> MatchSortedWithRound =
     new Dictionary<int, string[,]>();
 
@@ -31,7 +41,16 @@ namespace eSportTournament.Pages.Competitions
         {
             var test = MatchSortedWithRound.Count;
             Competition compet = await _context.Competitions.FirstOrDefaultAsync(c => c.ID == id);
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(userId != null)
+            {
+                Competition c = await _context.Competitions.FirstOrDefaultAsync(co => co.ownerID == userId && co.ID == id);
+                if (c != null)
+                {
+                    showDelete = true;
 
+                }
+            }
             Match = await _context.Matchs
                 .Include(m => m.Competition)
                 .Include(m => m.EquipeA)

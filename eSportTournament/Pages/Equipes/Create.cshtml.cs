@@ -55,7 +55,8 @@ namespace eSportTournament.Pages.Equipes
             {
                 return Page();
             }
-
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Equipe.ownerID = userId;
             var data = _context.Equipes.Add(Equipe);
             await _context.SaveChangesAsync();
             for (int i = 0; i < SelectedPlayers.Length; i++)
@@ -67,7 +68,6 @@ namespace eSportTournament.Pages.Equipes
                 await _context.SaveChangesAsync();
 
             }
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             DemandeEquipeCreation demandeCreation = new DemandeEquipeCreation();
             demandeCreation.equipeID = data.Entity.ID;

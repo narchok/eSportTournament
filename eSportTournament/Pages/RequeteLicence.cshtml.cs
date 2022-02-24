@@ -45,7 +45,7 @@ namespace eSportTournament.Pages
             for (int i = 0; i < DemandeLicence.Count; i++)
             {
                 Utilisateur u = await _context.Utilisateurs.FirstOrDefaultAsync(ut => ut.userID == DemandeLicence[i].userID);
-                temp[i] = u.nom + " " + u.prenom;
+             //   temp[i] = u.nom + " " + u.prenom;
             }
             noms = temp;
             return Page();

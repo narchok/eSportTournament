@@ -25,10 +25,6 @@
             <th>
                 Equipe B
             </th>
-      
-            <th>
-                @Html.DisplayNameFor(model => model.Match[0].gagnantID)
-            </th>
             <th>
                 Compétition
             </th>
@@ -58,9 +54,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EquipeB.nomEquipe)
                 </td>
-                <td>
-                    @nomGagnant
-                </td>
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.Competition.nomCompetition)
                 </td>

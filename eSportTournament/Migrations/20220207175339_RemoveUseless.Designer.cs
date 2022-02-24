@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eSportTournament.Data;
 
 namespace eSportTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220207175339_RemoveUseless")]
+    partial class RemoveUseless
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,9 +244,6 @@ namespace eSportTournament.Migrations
                     b.Property<int>("nombreJoueurs")
                         .HasColumnType("int");
 
-                    b.Property<string>("ownerID")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("terminer")
                         .HasColumnType("bit");
 
@@ -344,9 +343,6 @@ namespace eSportTournament.Migrations
 
                     b.Property<string>("nomEquipe")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ownerID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("valider")

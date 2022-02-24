@@ -49,11 +49,9 @@ namespace eSportTournament.Pages.Competitions
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            System.Console.WriteLine("DEBUT DU POST");
             Match temp = await _context.Matchs.FirstOrDefaultAsync(m => m.ID == id);
 
             Competition compt = await _context.Competitions.FirstOrDefaultAsync(c => c.ID == temp.CompetitionID);
-            System.Console.WriteLine("DEBUT DU POST" + compt.isTournoi);
 
             temp.EquipeAScore = Match.EquipeAScore;
             temp.EquipeBScore = Match.EquipeBScore;
@@ -75,7 +73,6 @@ namespace eSportTournament.Pages.Competitions
 
             _context.Attach(temp).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            System.Console.WriteLine("HEEERE" + compt.isTournoi);
             var rn = temp.roundNumber + 1;
             if(compt.isTournoi == true) {
                 if (temp.roundNumber == nbTour(compt.nombreJoueurs))

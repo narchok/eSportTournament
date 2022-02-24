@@ -16,6 +16,5 @@ namespace eSportTournament.VueModel
         public int nombreDefaite { get; set; }
         public int points { get; set; }
 
-
     }
 }

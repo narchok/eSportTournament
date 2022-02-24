@@ -16,7 +16,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Equipe[0].nomEquipe)
+                Nom
             </th>
             <th></th>
         </tr>
@@ -29,8 +29,7 @@
             </td>
             <td>
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> 
-               @if (Model.showDelete)
-               { <a asp-page="./Delete" asp-route-id="@item.ID"> | Supprimer</a>}
+            
             </td>
         </tr>
 }
