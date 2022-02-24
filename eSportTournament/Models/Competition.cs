@@ -28,6 +28,8 @@ namespace eSportTournament.Models
         public bool terminer { get; set; }
 
         public int jeuId { get; set; }
+       
+        public string ownerID {get; set; }
 
         // Pour gérer qui a créer la compétition
 
