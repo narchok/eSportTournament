@@ -13,7 +13,7 @@ namespace eSportTournament.Models
         [Required]
         public int ID { get; set; }
         [Required]
-#Ceci est un commentaire, je fais des commentaire pertinents non ? (Ceci est du test) 
+#Ceci est un commentaire, je fais des commentaires pertinents non ? (Ceci est un test) 
         [Display(Name = "Nom")]
 
         public string nomCompetition { get; set; }
